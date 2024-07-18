@@ -1,0 +1,75 @@
+git clone 
+
+cd in cloned project
+
+cd  cn1
+
+docker compose up -d 
+
+
+
+
+mysql -u root -p123 -P 3307 -h 127.0.0.1 -e 'show databases;'
+
+
+mysql -u root -p123 -P 3307 -h 127.0.0.1 -e 'use movies; show tables'
+mysql -u root -p123 -P 3307 -h 127.0.0.1 -e 'use animations; show tables'
+
+mysql -u root -p123 -P 3307 -h 127.0.0.1 -e 'select * from movies.FightClub'
+mysql -u root -p123 -P 3307 -h 127.0.0.1 -e 'select * from movies.TheMist'
+
+mysql -u root -p123 -P 3307 -h 127.0.0.1 -e 'select * from animations.AOT'
+mysql -u root -p123 -P 3307 -h 127.0.0.1 -e 'select * from animations.RickandMorty'
+
+
+
+
+mysql -u root -p123 -P 3307 -h 127.0.0.1 -e  'CREATE USER "jafari"@"%" IDENTIFIED BY "456";
+GRANT ALL PRIVILEGES ON `alaki`.* TO `jafari`@`%` ;
+FLUSH PRIVILEGES;'
+
+
+mysql -u root -p123 -P 3307 -h 127.0.0.1 -e 'SHOW GRANTS FOR "jafari"@"%";'
+
+
+
+mysql -u jafari -p456 -P 3307 -h 127.0.0.1 -e \
+'
+CREATE DATABASE IF NOT EXISTS alaki;
+CREATE TABLE IF NOT EXISTS alaki.heroes ( id INT NOT NULL AUTO_INCREMENT, name VARCHAR(50), power VARCHAR(25), PRIMARY KEY(id));
+'
+
+mysql -u jafari -p456 -P 3307 -h 127.0.0.1 -e \
+'
+INSERT INTO alaki.heroes (name , power) VALUES ("flash", "speed");
+'
+
+
+
+
+mysql -u jafari -p456 -P 3307 -h 127.0.0.1 -e \
+'
+use alaki;
+show tables;
+'
+
+mysql -u jafari -p456 -P 3307 -h 127.0.0.1 -e \
+'
+select * from alaki.heroes;
+'
+
+
+#test user have permission on movies database or not
+mysql -u jafari -p456 -P 3307 -h 127.0.0.1 -e \
+'
+use movies;
+show tables;
+'
+
+
+#test user have permission on movies database or not
+mysql -u jafari -p456 -P 3307 -h 127.0.0.1 -e \
+'
+CREATE TABLE IF NOT EXISTS movies.jadid ( id INT NOT NULL AUTO_INCREMENT, name VARCHAR(50), power VARCHAR(25), PRIMARY KEY(id));
+'
+create_user_earlier_than_database
